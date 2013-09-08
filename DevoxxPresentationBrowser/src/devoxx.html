@@ -1,0 +1,51 @@
+<!doctype html>
+<html ng-app="devoxx">
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.5.0.js"></script>
+<script src="devoxxRest.js"></script>
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <h2>Devoxx 2013 Presentations</h2>
+  <div ng-controller="LoadCtrl">
+
+    <table>
+      <tr>
+        <th>Track</th>
+        <th>Title</th>
+        <th>Tags</th>
+      </tr>
+      <tr ng-repeat="presentation in presentations">
+        <td>{{presentation.track}}</td>
+        <td><a ng-click="openDialog(presentation)">{{presentation.title}}</a>
+        <td>{{showTags(presentation)}}</td>
+      </tr>
+    </table>
+    <form ng-submit="loadData()">
+      <input class="btn-primary" type="submit" value="load"">
+    </form>
+
+    <div modal="shouldBeOpen" close="closeDialog()" options="opts">
+      <div class="modal-header">
+        <h3>
+          <span>{{dialogTitle()}}</span>
+        </h3>
+      </div>
+      <div class="modal-body">
+        <span>{{dialogDescription()}}</span>
+      </div>
+      <div class="modal-body">
+        <span>{{dialogSpeaker()}}</span>
+      </div>
+      <div class="modal-body">
+        <span>{{dialogContent()}}</span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-warning cancel" ng-click="closeDialog()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
